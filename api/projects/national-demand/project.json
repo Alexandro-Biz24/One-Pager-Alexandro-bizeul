@@ -1,0 +1,7 @@
+{
+  "title": "Beating the national day-ahead energy demand forecast",
+  "section": "quant",
+  "year": "2026",
+  "summary": "SARIMA, LightGBM error correction, and an MTST outlook. Inference only.",
+  "tags": ["SARIMA", "LightGBM", "MTST", "RTE"]
+}

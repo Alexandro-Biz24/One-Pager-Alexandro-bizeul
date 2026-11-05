@@ -1,0 +1,10 @@
+[
+  {
+    "date": "2026-06-08",
+    "model": "mtst",
+    "rte_mape": 4.48,
+    "ape_above_5": 11,
+    "hours": 24,
+    "recorded_at": "2026-10-24T07:58:52Z"
+  }
+]

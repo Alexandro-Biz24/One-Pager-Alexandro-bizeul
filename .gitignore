@@ -1,0 +1,66 @@
+api/.venv
+web/node_modules
+web/dist
+web/.env
+web/.env.local
+.DS_Store
+
+
+
+
+# Python environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+*.ipynb
+.ipynb_checkpoints/
+
+# Local datasets
+*.csv
+*.parquet
+*.feather
+*.xlsx
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Frontend
+node_modules/
+dist/
+.vite/
+.vercel/
+
+# System / IDE
+.DS_Store
+._*
+.vscode/
+.idea/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Model artifacts not used in production
+**/sarima_backtest.joblib
+
+# Keep trained model artifacts
+!api/timeseries/statistical/artifacts/sarima_model.joblib
+!api/timeseries/ml/artifacts/lightgbm_model.joblib
+!api/timeseries/dl/weights/mtst_best.pt
+
+# Timeseries development resources
+api/timeseries/data/
+api/timeseries/ressources/

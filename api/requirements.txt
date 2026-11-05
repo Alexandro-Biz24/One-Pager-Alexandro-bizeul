@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+psycopg[binary]
+pandas
+numpy
+scipy
+statsmodels
+joblib
+lightgbm
+scikit-learn
+torch
+mtst
