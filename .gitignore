@@ -64,3 +64,4 @@ dist/
 # Timeseries development resources
 api/timeseries/data/
 api/timeseries/ressources/
+web/.env.example
