@@ -1,3 +1,4 @@
+
 fastapi
 uvicorn[standard]
 psycopg[binary]
@@ -9,4 +10,4 @@ joblib
 lightgbm
 scikit-learn
 torch
-mtst
+mtst-forecasting
