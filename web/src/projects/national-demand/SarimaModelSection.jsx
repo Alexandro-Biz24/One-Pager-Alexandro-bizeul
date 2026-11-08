@@ -857,7 +857,7 @@ function CSVDownload({ raw, start, end }) {
                     name="Observed load"
                     dataKey="load"
                     stroke="#243447"
-                    strokeWidth={2.2}
+                    strokeWidth={1.5}
                     dot={false}
                     connectNulls={false}
                     isAnimationActive={false}
@@ -884,7 +884,7 @@ function CSVDownload({ raw, start, end }) {
                     name="SARIMA forecast"
                     dataKey="prediction"
                     stroke="#087c82"
-                    strokeWidth={2.7}
+                    strokeWidth={2}
                     dot={false}
                     connectNulls={false}
                     isAnimationActive={false}

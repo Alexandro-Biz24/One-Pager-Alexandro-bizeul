@@ -1,54 +1,111 @@
-/* Import this AFTER the existing page styles. Keeps the three section titles visible. */
-.model-cols > section {
-  min-width: 0;
-  min-height: 0;
-  position: relative;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-gutter: stable;
-}
-.model-cols > section + section { border-left: 1px solid #d7dfeb; }
-.model-cols > section:not(:first-child) { padding-left: 18px; }
-.model-cols > section:not(:last-child) { padding-right: 18px; }
-.model-cols > section > h2 {
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  background: #fff;
-  margin-top: 0;
-  padding: 14px 0 16px;
-  border-bottom: 1px solid #d7dfeb;
-}
-/* Collapsible mathematical specification: no duplicated card frame. */
-.sarima-method-accordion {
-  border: 1px solid #d7dfeb;
-  border-radius: 10px;
-  background: #fff;
-  overflow: hidden;
-}
-.sarima-method-accordion > summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  list-style: none;
-  padding: 20px 22px;
-  cursor: pointer;
-  color: #183a69;
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-.sarima-method-accordion > summary::-webkit-details-marker { display: none; }
-.sarima-method-chevron {
-  width: 9px;
-  height: 9px;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(45deg);
-  transition: transform .2s;
-}
-.sarima-method-accordion[open] .sarima-method-chevron { transform: rotate(225deg); }
-.sarima-method-accordion-content { padding: 0 14px 14px; }
-.sarima-method-accordion-content .sarima-card { margin: 0; border: 0; box-shadow: none; }
-/* CSV button lives inside the forecast toolbar. */
-.sarima-chart-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.sarima-chart-toolbar button { white-space: nowrap; }
+/* ==========================================
+   COLUMN LAYOUT
+   ========================================== */
+
+   .model-cols > section {
+    min-width: 0;
+    min-height: 0;
+    position: relative;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+  
+  .model-cols > section + section {
+    border-left: 1px solid #d7dfeb;
+  }
+  
+  .model-cols > section:not(:first-child) {
+    padding-left: 1.125rem;
+  }
+  
+  .model-cols > section:not(:last-child) {
+    padding-right: 1.125rem;
+  }
+  
+  .model-cols > section > h2 {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: #fff;
+    margin-top: 0;
+    padding: 0.875rem 0 1rem;
+    border-bottom: 1px solid #d7dfeb;
+  }
+  
+  /* ==========================================
+     MATHEMATICAL SPECIFICATION
+     ========================================== */
+  
+  .sarima-method-accordion {
+    border: 1px solid #d7dfeb;
+    border-radius: 0.625rem;
+    background: #fff;
+    overflow: hidden;
+  }
+  
+  .sarima-method-accordion > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    padding: 1.25rem 1.375rem;
+    cursor: pointer;
+    color: #183a69;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  
+  .sarima-method-accordion > summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .sarima-method-chevron {
+    width: 0.5625rem;
+    height: 0.5625rem;
+    border-right: 0.125rem solid currentColor;
+    border-bottom: 0.125rem solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.2s;
+  }
+  
+  .sarima-method-accordion[open] .sarima-method-chevron {
+    transform: rotate(225deg);
+  }
+  
+  .sarima-method-accordion-content {
+    padding: 0 0.875rem 0.875rem;
+  }
+  
+  .sarima-method-accordion-content .sarima-card {
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  
+  /* ==========================================
+     CHART TOOLBAR
+     ========================================== */
+  
+  .sarima-chart-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  
+  .sarima-chart-toolbar button {
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 576px) {
+    .model-cols > section + section {
+      border-left: 0;
+    }
+  
+    .model-cols > section:not(:first-child),
+    .model-cols > section:not(:last-child) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }

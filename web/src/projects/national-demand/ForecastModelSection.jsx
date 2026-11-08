@@ -862,7 +862,7 @@ export default function ForecastModelSection({
                 name="Observed load"
                 dataKey="load"
                 stroke="#243447"
-                strokeWidth={2.2}
+                strokeWidth={1.5}
                 dot={false}
                 connectNulls={false}
                 isAnimationActive={false}
@@ -889,7 +889,7 @@ export default function ForecastModelSection({
                 name={`${config.name} forecast`}
                 dataKey="prediction"
                 stroke={config.color}
-                strokeWidth={2.7}
+                strokeWidth={2}
                 dot={false}
                 connectNulls={false}
                 isAnimationActive={false}

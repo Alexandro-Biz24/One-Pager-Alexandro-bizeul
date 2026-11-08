@@ -161,22 +161,109 @@ function Explanations({ residual = false }) {
 
 function WeeklyChart({ chart, index }) {
   const color = index === 0 ? "#c58a36" : "#087c82";
-  return <div className="stats-visual-panel">
-    <h4>{chart?.label ?? (index === 0 ? "RTE" : "Model")} — reliability</h4>
-    <div className="stats-fixed-chart"><ResponsiveContainer width="100%" height="100%">
-      <ComposedChart data={chart?.points ?? []} margin={{ top: 12, right: 12, bottom: 8, left: 0 }}>
-        <CartesianGrid stroke="#e1e8ed" strokeDasharray="3 4" />
-        <XAxis dataKey="utc" tickFormatter={formatHour} tick={{ fontSize: 10 }} minTickGap={28} />
-        <YAxis width={55} tick={{ fontSize: 11 }} domain={["auto", "auto"]} tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} />
-        <Tooltip labelFormatter={formatHour} formatter={(value, name) => [Array.isArray(value) ? `${displayNumber(value[0])} – ${displayNumber(value[1])} MW` : `${displayNumber(value)} MW`, name]} />
-        <Area dataKey="interval" name="95% interval" fill={color} fillOpacity={0.18} stroke="none" isAnimationActive={false} />
-        <Line dataKey="load" name="Observed load" stroke="#243447" strokeWidth={2} dot={false} isAnimationActive={false} />
-        <Line dataKey="prediction" name={chart?.label ?? "Forecast"} stroke={color} strokeWidth={2} dot={false} isAnimationActive={false} />
-        <Line dataKey="above_5" name="APE > 5%" stroke="none" legendType="none" dot={{ r: 3.5, fill: "#f08c28", strokeWidth: 0 }} activeDot={false} isAnimationActive={false} />
-        <Line dataKey="outside" name="Outside interval" stroke="none" legendType="none" dot={{ r: 4, fill: "#d62828", strokeWidth: 0 }} activeDot={false} isAnimationActive={false} />
-      </ComposedChart>
-    </ResponsiveContainer></div>
-  </div>;
+
+  return (
+    <div className="stats-visual-panel">
+      <h4>
+        {chart?.label ?? (index === 0 ? "RTE" : "Model")} — reliability
+      </h4>
+
+      <div className="stats-fixed-chart">
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart
+            data={chart?.points ?? []}
+            margin={{ top: 12, right: 12, bottom: 8, left: 0 }}
+          >
+            <CartesianGrid
+              stroke="#e1e8ed"
+              strokeDasharray="3 4"
+            />
+
+            <XAxis
+              dataKey="utc"
+              tickFormatter={formatHour}
+              tick={{ fontSize: 10 }}
+              minTickGap={28}
+            />
+
+            <YAxis
+              width={55}
+              tick={{ fontSize: 11 }}
+              domain={["auto", "auto"]}
+              tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`}
+            />
+
+            <Tooltip
+              labelFormatter={formatHour}
+              formatter={(value, name) => [
+                Array.isArray(value)
+                  ? `${displayNumber(value[0])} – ${displayNumber(value[1])} MW`
+                  : `${displayNumber(value)} MW`,
+                name,
+              ]}
+            />
+
+            <Area
+              dataKey="interval"
+              name="95% interval"
+              fill={color}
+              fillOpacity={0.18}
+              stroke="none"
+              isAnimationActive={false}
+            />
+
+            <Line
+              dataKey="load"
+              name="Observed load"
+              stroke="#243447"
+              strokeWidth={1}
+              dot={false}
+              activeDot={{ r: 3, strokeWidth: 0 }}
+              isAnimationActive={false}
+            />
+
+            <Line
+              dataKey="prediction"
+              name={chart?.label ?? "Forecast"}
+              stroke={color}
+              strokeWidth={1}
+              dot={false}
+              activeDot={{ r: 3, strokeWidth: 0 }}
+              isAnimationActive={false}
+            />
+
+            <Line
+              dataKey="above_5"
+              name="APE > 5%"
+              stroke="none"
+              legendType="none"
+              dot={{
+                r: 2,
+                fill: "#f08c28",
+                strokeWidth: 0,
+              }}
+              activeDot={false}
+              isAnimationActive={false}
+            />
+
+            <Line
+              dataKey="outside"
+              name="Outside interval"
+              stroke="none"
+              legendType="none"
+              dot={{
+                r: 2.3,
+                fill: "#d62828",
+                strokeWidth: 0,
+              }}
+              activeDot={false}
+              isAnimationActive={false}
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
 }
 
 function WeeklyAudit({ weekly, model }) {
