@@ -658,3 +658,355 @@ main h1 { margin-top: 2.2rem; }
   .menu-item > a { padding: 0.95rem 1.1rem; }
   .dropdown { position: static; }
 }
+
+
+/* ==========================================================
+   GLOBAL NAVIGATION — SINGLE SOURCE OF TRUTH
+   Adjust these variables to style the blue navigation bar
+   consistently across every page, including National Demand.
+   ========================================================== */
+:root {
+  --site-nav-font-size: 1.3rem;
+  --site-nav-font-weight: 600;
+  --site-nav-line-height: 1.3;
+  --site-nav-item-padding-y: 0.7rem;
+  --site-nav-item-padding-x: 0.7rem;
+  --site-nav-dropdown-font-size: 1.15rem;
+  --site-nav-dropdown-font-weight: 650;
+  --site-nav-dropdown-padding-y: 0.45rem;
+  --site-nav-dropdown-padding-x: 0.8rem;
+}
+.app .menubar .menu-item > a {
+  font-size: var(--site-nav-font-size);
+  font-weight: var(--site-nav-font-weight);
+  line-height: var(--site-nav-line-height);
+  padding: var(--site-nav-item-padding-y) var(--site-nav-item-padding-x);
+}
+.app .menubar .dropdown a {
+  font-size: var(--site-nav-dropdown-font-size);
+  font-weight: var(--site-nav-dropdown-font-weight);
+  line-height: 1.5;
+  padding: var(--site-nav-dropdown-padding-y) var(--site-nav-dropdown-padding-x);
+}
+/* Navigation stays consistent when switching routes. */
+@media (max-width: 860px) {
+  :root {
+    --site-nav-font-size: 1.1rem;
+    --site-nav-dropdown-font-size: 1rem;
+  }
+}
+
+/* Publication paper citation */
+.publication-paper-link {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.publication-paper-link:hover { color: var(--blue-dark); }
+
+/* Forecast model selector label */
+.model-selection-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.1rem;
+  margin-bottom: 1rem;
+}
+.model-selection-label {
+  font-size: 1.05rem;
+  font-weight: 650;
+  color: #183a69;
+}
+.model-selection-row .model-switch { margin-bottom: 0; }
+
+/* ==========================================================
+   SITE IDENTITY — LIGHT BLUE BANNER
+   Edit labels and logo URLs in src/siteIdentity.js.
+   ========================================================== */
+:root {
+  --identity-logo-size: 8.5rem;
+  --identity-label-size: 0.9rem;
+  --identity-name-size: 1rem;
+  --identity-gap: 5rem;
+  --directory-width: 66vw;
+  --directory-max-width: 1100px;
+  --directory-row-font-size: 1.35rem;
+  --directory-row-padding: 1.5rem;
+}
+
+.banner-bar { justify-content: space-between; gap: 1rem 2rem; }
+.identity-group {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.85rem var(--identity-gap);
+  margin-left: auto;
+}
+.identity-item { display: flex; align-items: center; gap: 0.7rem; min-width: 0; }
+.identity-logo {
+  display: block;
+  width: var(--identity-logo-size);
+  height: var(--identity-logo-size);
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.identity-logo-placeholder {
+  background: rgba(255, 255, 255, 0.19);
+  border: 1px solid rgba(255,255,255,0.4);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.7rem;
+}
+.identity-details { display: flex; flex-direction: column; line-height: 1.25; }
+.identity-label { font-size: var(--identity-label-size); opacity: 0.82; }
+.identity-name { font-size: var(--identity-name-size); font-weight: 600; }
+
+/* ==========================================================
+   UNIFIED DIRECTORY — PAPERS, PUBLICATIONS, COMPETITIONS
+   ========================================================== */
+.directory-page {
+  width: min(var(--directory-width), var(--directory-max-width));
+  max-width: calc(100vw - 2.5rem);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2.4rem 0 5rem;
+  margin: 0;
+}
+.directory-page > h1 {
+  font-size: clamp(1.8rem, 2.3vw, 2.5rem);
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+  padding: 0 0 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+.directory-page .list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.directory-page .item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--directory-row-padding) 1.6rem;
+  gap: 0.35rem;
+  border-top: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  text-align: left;
+  font-size: var(--directory-row-font-size);
+  text-decoration: none;
+  transition: background-color 140ms ease, padding-left 140ms ease;
+}
+.directory-page .item:first-child { border-top: 1px solid var(--line); }
+.directory-page .item:hover,
+.directory-page .item:focus-visible {
+  background: #f4f8fd;
+  padding-left: 1.95rem;
+  text-decoration: none;
+}
+.directory-page .item-title { font-weight: 600; }
+.directory-page .item-sum { font-size: 0.9rem; }
+.directory-page .count { font-size: 0.9em; font-weight: 400; }
+
+/* Override the old centered, narrow publication list layout. */
+.pub-list.directory-page {
+  display: block;
+  min-height: unset;
+  padding: 2.4rem 0 5rem;
+}
+.pub-list.directory-page a.item {
+  border-left: 0;
+  border-right: 0;
+  text-align: left;
+}
+
+@media (max-width: 700px) {
+  .banner-bar { align-items: flex-start; }
+  .identity-group { width: 100%; justify-content: flex-start; margin-left: 0; }
+  .directory-page { width: calc(100vw - 2rem); }
+  .directory-page .item { font-size: 1.1rem; padding: 1.15rem 0.8rem; }
+  .directory-page .item:hover { padding-left: 1rem; }
+}
+
+.identity-role {
+  display: block;
+  font-size: 0.85rem;
+  color: #e0eaff;
+}
+
+
+/* =========================================
+   HEADER — CENTRALIZED CONFIGURATION
+   ========================================= */
+
+   :root {
+    /* LIGHT BLUE BANNER */
+    --header-height: 140px;
+  
+    /* SITE NAME */
+    --header-name-font-size: 2.2rem;
+  
+    /* COMPANY */
+    --company-logo-width: 200px;
+    --company-logo-height: 85px;
+    --company-role-font-size: 1.3rem;
+    --company-name-font-size: 1.1rem;
+  
+    /* UNIVERSITY */
+    --university-logo-width: 230px;
+    --university-logo-height: 485px;
+    --university-name-font-size: 1.1rem;
+  
+    /* WHITE SEPARATORS */
+    --identity-separator-width: 1px;
+    --identity-separator-height: 14px;
+    --identity-separator-gap: 14px;
+  
+    /* DARK BLUE NAVIGATION BAR */
+    --navbar-height: 68px;
+    --navbar-font-size: 1.45rem;
+    --navbar-font-weight: 550;
+    --navbar-background: #143e78;
+  }
+  
+  /* =========================================
+     LIGHT BLUE BANNER
+     ========================================= */
+  
+  .banner .banner-bar {
+    height: var(--header-height);
+    min-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .banner h1,
+  .banner .banner-name {
+    font-size: var(--header-name-font-size);
+  }
+  
+  /* =========================================
+     COMPANY — FIRST IDENTITY
+     ========================================= */
+  
+  .banner .identity-item:first-child .identity-logo {
+    width: var(--company-logo-width);
+    height: var(--company-logo-height);
+  }
+  
+  .banner .identity-item:first-child .identity-role {
+    font-size: var(--company-role-font-size);
+  }
+  
+  .banner .identity-item:first-child .identity-name {
+    font-size: var(--company-name-font-size);
+  }
+  
+  /* =========================================
+     UNIVERSITY — SECOND IDENTITY
+     ========================================= */
+  
+  .banner .identity-item:nth-child(2) .identity-logo {
+    width: var(--university-logo-width);
+    height: var(--university-logo-height);
+  }
+  
+  .banner .identity-item:nth-child(2) .identity-name {
+    font-size: var(--university-name-font-size);
+  }
+  
+  /* =========================================
+     SHARED IDENTITY LAYOUT
+     ========================================= */
+  
+  .banner .identity-item {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+  
+  .banner .identity-logo {
+    object-fit: contain;
+    flex-shrink: 0;
+    max-height: calc(var(--header-height) - 10px);
+  }
+  
+  .banner .identity-details {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  
+    padding-left: var(--identity-separator-gap);
+    margin-left: var(--identity-separator-gap);
+    border-left: var(--identity-separator-width) solid white;
+  }
+  
+  /* =========================================
+     DARK BLUE NAVIGATION BAR
+     ========================================= */
+  
+  .menubar {
+    background: var(--navbar-background);
+  }
+  
+  .menubar > .bar {
+    height: var(--navbar-height);
+    min-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Menu links */
+  .app .menubar .menu-item > a {
+    font-size: var(--navbar-font-size);
+    font-weight: var(--navbar-font-weight);
+  }
+
+
+  /* ===== DROPDOWN MENU ===== */
+
+.menubar .dropdown {
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Each publication / paper is a separate row */
+.app .menubar .dropdown a {
+  display: block;
+  padding: 16px 20px;
+
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+
+  transition: background-color 0.15s ease;
+}
+
+/* Remove border from last item */
+.app .menubar .dropdown a:last-child {
+  border-bottom: none;
+}
+
+/* Hover effect */
+.app .menubar .dropdown a:hover {
+  background: rgba(255, 255, 255, 0.15);
+}

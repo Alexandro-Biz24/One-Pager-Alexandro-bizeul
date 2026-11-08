@@ -5,7 +5,7 @@ import workerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url"
 GlobalWorkerOptions.workerSrc = workerUrl
 
 const MAX_ZOOM = 4
-const DEFAULT_ZOOM = 0.6
+const DEFAULT_ZOOM = 0.65
 
 function documentMinZoom(frame, pages, aspect) {
   const height = frame?.clientHeight || 0
@@ -258,7 +258,63 @@ export function PdfFrame({ src, title, bleed = false }) {
           return
         }
         if (cancelled) return
-        slot.replaceChildren(canvas)
+
+        // PDF.js renders the page visually on canvas; hyperlinks require
+        // a separate annotation overlay aligned with the rendered page.
+        const linkLayer = document.createElement("div")
+        linkLayer.className = "pdf-link-layer"
+        Object.assign(linkLayer.style, {
+          position: "absolute",
+          inset: "0",
+          zIndex: "2",
+          pointerEvents: "none",
+        })
+
+        try {
+          const annotations = await page.getAnnotations({ intent: "display" })
+          if (cancelled) return
+
+          // Use the CSS page size, not canvas device-pixel dimensions.
+          const linkViewport = page.getViewport({ scale: width / base.width })
+
+          for (const annotation of annotations) {
+            if (annotation.subtype !== "Link" || !annotation.url || !annotation.rect) continue
+
+            let destination
+            try {
+              destination = new URL(annotation.url, window.location.href)
+            } catch {
+              continue
+            }
+            if (!["http:", "https:", "mailto:"].includes(destination.protocol)) continue
+
+            const [ax1, ay1, ax2, ay2] = linkViewport.convertToViewportRectangle(annotation.rect)
+            const left = Math.min(ax1, ax2)
+            const top = Math.min(ay1, ay2)
+            const link = document.createElement("a")
+            link.href = destination.href
+            link.target = "_blank"
+            link.rel = "noopener noreferrer"
+            link.title = destination.href
+            link.setAttribute("aria-label", `Open ${destination.href}`)
+            Object.assign(link.style, {
+              position: "absolute",
+              left: `${left}px`,
+              top: `${top}px`,
+              width: `${Math.abs(ax2 - ax1)}px`,
+              height: `${Math.abs(ay2 - ay1)}px`,
+              display: "block",
+              cursor: "pointer",
+              pointerEvents: "auto",
+            })
+            linkLayer.appendChild(link)
+          }
+        } catch (err) {
+          console.warn("PDF annotations could not be loaded", err)
+        }
+
+        slot.style.position = "relative"
+        slot.replaceChildren(canvas, linkLayer)
       }
 
       observer = new IntersectionObserver(

@@ -1,0 +1,11 @@
+{
+  "method": "absolute_residual_split_conformal",
+  "coverage_target": 0.95,
+  "alpha": 0.05,
+  "calibration_start": "2024-01-01",
+  "calibration_end_exclusive": "2026-01-01",
+  "n_calibration": 17542,
+  "q95_mw": 2654.0,
+  "interval_type": "symmetric",
+  "historical_application": "retrospective"
+}

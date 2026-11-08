@@ -6,7 +6,7 @@ export const publicationPages = {
         "Development and release of an ",
         { strong: "independent PyTorch implementation of the Multi-Resolution Time Series Transformer (MTST)" },
         ", inspired by the paper presented at ",
-        { strong: "AISTATS 2024" },
+        { strong: "AISTATS 2024", href: "https://proceedings.mlr.press/v238/zhang24l.html" },
         ". The model reads a series at several patch lengths at once: short patches follow the peak, long patches follow the week.",
       ],
       [

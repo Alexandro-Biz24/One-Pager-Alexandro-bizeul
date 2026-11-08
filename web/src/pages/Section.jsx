@@ -1,6 +1,15 @@
+
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { getJson } from "../api"
+
+const SPECS_PAPER = {
+  slug: "specs-transformer",
+  title: "SPECS-Transformer — Financial Volatility Forecasting",
+  year: 2025,
+  summary:
+    "A Transformer architecture for volatility forecasting with signal-spectrum dynamics.",
+}
 
 export function Section() {
   const { sectionId } = useParams()
@@ -10,27 +19,49 @@ export function Section() {
   useEffect(() => {
     setSection(undefined)
     setError("")
+
     getJson("/sections")
       .then((list) => {
         const found = list.find((s) => s.id === sectionId)
         setSection(found || null)
-        if (found) document.title = `${found.label} — Alexandro Bizeul`
+
+        if (found) {
+          document.title = `${found.label} — Alexandro Bizeul`
+        }
       })
       .catch(() => setError("The API is not responding."))
   }, [sectionId])
 
-  if (error) return <p className="error">{error}</p>
-  if (section === undefined) return <p className="meta">Loading.</p>
-  if (section === null) return <p className="meta">Section not found.</p>
+  if (error) {
+    return <p className="error">{error}</p>
+  }
+
+  if (section === undefined) {
+    return <p className="meta">Loading.</p>
+  }
+
+  if (section === null) {
+    return <p className="meta">Section not found.</p>
+  }
+
+  const projects = [...(section.projects || [])]
+
+  if (
+    sectionId === "papers" &&
+    !projects.some((item) => item.slug === SPECS_PAPER.slug)
+  ) {
+    projects.push(SPECS_PAPER)
+  }
 
   return (
-    <main>
+    <main className="directory-page">
       <h1>{section.label}</h1>
-      {section.projects.length === 0 ? (
+
+      {projects.length === 0 ? (
         <p className="meta">Nothing published yet.</p>
       ) : (
         <div className="list">
-          {section.projects.map((project) => (
+          {projects.map((project) => (
             <Link
               className="item"
               key={project.slug}
@@ -38,9 +69,19 @@ export function Section() {
             >
               <span className="item-title">
                 {project.title}
-                {project.year && <span className="count"> {project.year}</span>}
+
+                {project.year && (
+                  <span className="count">
+                    {" "}{project.year}
+                  </span>
+                )}
               </span>
-              {project.summary && <span className="item-sum">{project.summary}</span>}
+
+              {project.summary && (
+                <span className="item-sum">
+                  {project.summary}
+                </span>
+              )}
             </Link>
           ))}
         </div>

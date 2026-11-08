@@ -1,0 +1,527 @@
+
+/* ==========================================
+   SARIMA MODEL — CENTRAL COLUMN
+   ========================================== */
+
+   .sarima-section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 0;
+    padding-bottom: 28px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #293647;
+  }
+  
+  .sarima-section button,
+  .sarima-section input {
+    font: inherit;
+  }
+  
+  .sarima-section h3 {
+    font-size: 20px;
+    font-weight: 750;
+    color: #17365d;
+    line-height: 1.35;
+    margin: 0 0 12px;
+  }
+  
+  .sarima-section h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #17365d;
+    margin: 22px 0 12px;
+  }
+  
+  .sarima-section p {
+    margin: 0 0 12px;
+  }
+  
+  .sarima-card {
+    border: 1px solid #dfe5eb;
+    border-radius: 5px;
+    background: #fff;
+    padding: 18px;
+    min-width: 0;
+  }
+  
+  /* Today / Custom switch */
+  
+  .sarima-period-control {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .sarima-switcher {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid #cbd6e0;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .sarima-switcher button {
+    padding: 12px 8px;
+    border: none;
+    border-radius: 0;
+    background: #f4f7fa;
+    color: #42536a;
+    font-size: 15px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  
+  .sarima-switcher button + button {
+    border-left: 1px solid #cbd6e0;
+  }
+  
+  .sarima-switcher button.active {
+    background: #17365d;
+    color: #fff;
+  }
+  
+  .sarima-date-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .sarima-date-fields label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 650;
+    color: #435269;
+  }
+  
+  .sarima-date-fields input {
+    min-width: 0;
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #cbd6e0;
+    border-radius: 4px;
+    background: white;
+    color: #273448;
+    font-size: 13px;
+  }
+  
+  /* Forecast heading */
+  
+  .sarima-chart-heading {
+    margin-bottom: 15px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #e1e7ec;
+  }
+  
+  .sarima-chart-heading h3 {
+    font-size: 21px;
+    margin-bottom: 12px;
+  }
+  
+  .sarima-chart-heading p {
+    margin: 3px 0;
+    font-size: 14px;
+    color: #556273;
+  }
+  
+  .sarima-chart-heading strong {
+    color: #17365d;
+  }
+  
+  /* Chart tools */
+  
+  .sarima-chart-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .sarima-chart-toolbar > span {
+    flex: 1;
+    color: #667586;
+    font-size: 12px;
+  }
+  
+  .sarima-chart-toolbar button,
+  .sarima-download button {
+    border: 1px solid #b6c6d4;
+    border-radius: 4px;
+    background: #f7f9fb;
+    color: #17365d;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  
+  .sarima-chart-toolbar button.active {
+    background: #087c82;
+    border-color: #087c82;
+    color: #fff;
+  }
+  
+  .sarima-chart-toolbar button:hover {
+    border-color: #087c82;
+  }
+  
+  /* Chart */
+  
+  .sarima-chart {
+    height: 340px;
+    min-width: 0;
+    width: 100%;
+  }
+  
+  .sarima-chart-marking {
+    cursor: crosshair;
+  }
+  
+  .sarima-tooltip {
+    background: #fff;
+    border: 1px solid #cbd6e0;
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 9%);
+    padding: 10px 12px;
+    min-width: 185px;
+    font-size: 12px;
+  }
+  
+  .sarima-tooltip > strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #17365d;
+  }
+  
+  .sarima-tooltip > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 3px 0;
+  }
+  
+  .sarima-tooltip > div > span {
+    color: #59687a;
+  }
+  
+  .sarima-tooltip > div > b {
+    white-space: nowrap;
+    color: #263345;
+  }
+  
+  .sarima-error {
+    padding: 12px;
+    border-left: 3px solid #b84d4d;
+    background: #fff5f5;
+    color: #9c3434;
+  }
+  
+  .sarima-empty {
+    color: #687789;
+    padding: 25px 8px;
+    text-align: center;
+    border: 1px dashed #cbd6e0;
+  }
+  
+  .sarima-chart-help {
+    color: #667586;
+    font-size: 12px;
+    margin-top: 8px !important;
+  }
+  
+  .sarima-marker-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  
+  .sarima-marker-list button {
+    padding: 5px 9px;
+    border: 1px solid #e3c0c0;
+    border-radius: 4px;
+    background: #fff7f7;
+    color: #a43d3d;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  
+  /* Download */
+  
+  .sarima-download {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .sarima-download > div {
+    flex: 1 1 190px;
+  }
+  
+  .sarima-download h3 {
+    margin-bottom: 6px;
+  }
+  
+  .sarima-download p {
+    font-size: 13px;
+    color: #667586;
+    margin: 0;
+  }
+  
+  .sarima-download button {
+    background: #17365d;
+    border-color: #17365d;
+    color: white;
+    padding: 11px 15px;
+  }
+  
+  .sarima-download button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  
+  /* Model mathematics */
+  
+  .sarima-equation-tag {
+    display: inline-block;
+    background: #eef4f8;
+    color: #17365d;
+    font-size: 13px;
+    font-weight: 750;
+    padding: 6px 10px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+  }
+  
+  .sarima-knowledge > p {
+    font-size: 14px;
+    color: #47566a;
+  }
+  
+  .sarima-latex-block {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 12px 0;
+    font-size: 14px;
+  }
+  
+  .sarima-latex-inline {
+    display: inline-block;
+  }
+  
+  .sarima-latex-block .katex-display {
+    margin: 0;
+    padding: 8px 0;
+  }
+  
+  .sarima-explanation {
+    font-size: 13px !important;
+    color: #627186 !important;
+    line-height: 1.7;
+  }
+  
+  .sarima-method-note {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-left: 3px solid #087c82;
+    background: #f1f7f8;
+    padding: 12px 14px;
+    margin-top: 20px;
+  }
+  
+  .sarima-method-note strong {
+    color: #17365d;
+  }
+  
+  .sarima-method-note span {
+    color: #536477;
+    font-size: 13px;
+  }
+  
+  .sarima-paper-link {
+    display: inline-block;
+    margin-top: 18px;
+    color: #087c82;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+  
+  .sarima-paper-link:hover {
+    color: #17365d;
+  }
+  
+  @media (max-width: 520px) {
+    .sarima-card {
+      padding: 12px;
+    }
+  
+    .sarima-chart {
+      height: 300px;
+    }
+  
+    .sarima-latex-block {
+      font-size: 12px;
+    }
+  
+    .sarima-date-fields {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+
+  .sarima-latex-block {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 22px 0;
+    font-size: 18px;
+  }
+  
+  .sarima-latex-block .katex-display {
+    margin: 0;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+/* Mathematical parameter definitions */
+
+.sarima-parameter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 18px 0 25px;
+  }
+  
+  .sarima-parameter-row {
+    display: grid;
+    grid-template-columns: 50px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #e2e9ef;
+    font-size: 15px;
+  }
+  
+  .sarima-parameter-symbol {
+    color: #087c82;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  
+  .sarima-fitted-parameters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 15px 0 22px;
+  }
+  
+  .sarima-fitted-parameters > div {
+    background: #f3f7fa;
+    border: 1px solid #dfe5eb;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 19px;
+    color: #17365d;
+    text-align: center;
+  }
+
+
+
+/* ==========================================
+   COMPACT FORECAST HEADER
+   ========================================== */
+
+   .sarima-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  /* Prevent global section rules from adding space */
+  .sarima-section > section {
+    min-height: 0;
+    height: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  /* Forecast card layout */
+  .sarima-chart-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 22px;
+  }
+  
+  /* Heading */
+  .sarima-chart-heading {
+    margin: 0 0 14px;
+    padding: 0;
+    border-bottom: none;
+  }
+  
+  .sarima-chart-heading h3 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 800;
+  }
+  
+  /* Switcher directly under title */
+  .sarima-period-control {
+    margin: 0 0 15px;
+    padding: 0;
+    min-height: 0;
+    height: auto;
+  }
+  
+  /* Period and model labels */
+  .sarima-chart-metadata {
+    margin: 0 0 15px;
+    padding: 0 0 14px;
+    border-bottom: 1px solid #dfe5eb;
+  }
+  
+  .sarima-chart-metadata p {
+    margin: 3px 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #526175;
+  }
+  
+  .sarima-chart-metadata strong {
+    color: #17365d;
+    font-weight: 800;
+  }
+  
+  /* Chart starts immediately after metadata */
+  .sarima-chart-toolbar {
+    margin: 0 0 12px;
+  }
+  
+/* Reduce SARIMA mathematical specification font size */
+
+.sarima-method-accordion-content .sarima-knowledge {
+    font-size: 1rem;
+  }
+  
+  .sarima-method-accordion-content .katex {
+    font-size: 1.05em;
+  }
+
+/* Increase LaTeX formula size for ML and DL */
+
+.sarima-method-accordion-content .stats-formula .katex {
+    font-size: 2em;
+  }

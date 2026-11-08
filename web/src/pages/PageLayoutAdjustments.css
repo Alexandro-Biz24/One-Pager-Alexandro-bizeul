@@ -1,0 +1,369 @@
+/* ==========================================
+   COMPETITIONS — WIDTH AND READING SCALE
+   ========================================== */
+
+   .app .competition-page {
+    width: 65vw;
+    max-width: calc(100% - 3rem);
+    padding-top: 2.5rem;
+    font-size: 1.12rem;
+  }
+  
+  /* Return links */
+  
+  .app .competition-page .competition-back {
+    display: none;
+  }
+  
+  .app .competition-page .competition-footer {
+    justify-content: flex-end;
+  }
+  
+  .app .competition-page .competition-footer a[href="/competitions"] {
+    display: none;
+  }
+  
+  /* Hero */
+  
+  .app .competition-page .competition-hero {
+    margin-top: 0.5rem;
+    padding-bottom: 2.4rem;
+  }
+  
+  .app .competition-page .competition-eyebrow {
+    font-size: 0.88rem;
+  }
+  
+  .app .competition-page .competition-hero h1 {
+    font-size: clamp(2.7rem, 4.5vw, 4rem);
+  }
+  
+  .app .competition-page .competition-lead {
+    max-width: 52rem;
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+  }
+  
+  .app .competition-page .competition-abstract {
+    max-width: 100%;
+    font-size: 1.12rem;
+  }
+  
+  .app .competition-page .competition-note {
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+  
+  /* Context facts */
+  
+  .app .competition-page .competition-facts {
+    margin-top: 2.3rem;
+    padding: 1.4rem 0;
+    gap: 1.3rem;
+  }
+  
+  .app .competition-page .competition-facts span {
+    font-size: 0.86rem;
+  }
+  
+  .app .competition-page .competition-facts strong {
+    font-size: 1.08rem;
+  }
+  
+  /* In-page navigation */
+  
+  .app .competition-page .competition-contents {
+    padding: 1.6rem 0;
+    gap: 0.85rem 2rem;
+  }
+  
+  .app .competition-page .competition-contents a {
+    font-size: 1rem;
+  }
+  
+  .app .competition-page .competition-contents a span {
+    font-size: 0.82rem;
+  }
+  
+  /* Article */
+  
+  .app .competition-page .competition-section {
+    padding: 2.8rem 0;
+  }
+  
+  .app .competition-page .competition-section-number {
+    font-size: 0.85rem;
+  }
+  
+  .app .competition-page .competition-section h2 {
+    font-size: clamp(1.65rem, 2.7vw, 2.15rem);
+  }
+  
+  .app .competition-page .competition-section h3 {
+    margin-top: 2rem;
+    font-size: 1.12rem;
+  }
+  
+  .app .competition-page .competition-section > p:not(.competition-section-number) {
+    line-height: 1.85;
+  }
+  
+  /* Equations */
+  
+  .app .competition-page .competition-equation {
+    margin: 1.5rem 0;
+    padding: 1rem 1.2rem;
+  }
+  
+  .app .competition-page .competition-equation .katex {
+    font-size: 1.1em;
+  }
+  
+  /* Notes and decision table */
+  
+  .app .competition-page .competition-callout {
+    padding: 1.2rem 1.4rem;
+  }
+  
+  .app .competition-page .competition-callout strong {
+    font-size: 1rem;
+  }
+  
+  .app .competition-page .competition-callout p {
+    font-size: 1.03rem;
+  }
+  
+  .app .competition-page .competition-table {
+    font-size: 1rem;
+  }
+  
+  .app .competition-page .competition-table th {
+    font-size: 0.9rem;
+  }
+  
+  .app .competition-page .competition-table th,
+  .app .competition-page .competition-table td {
+    padding: 1rem 1.15rem;
+  }
+  
+  /* References */
+  
+  .app .competition-page .competition-references strong {
+    font-size: 1rem;
+  }
+  
+  .app .competition-page .competition-references span {
+    font-size: 0.98rem;
+  }
+  
+  .app .competition-page .competition-references a,
+  .app .competition-page .competition-footer a {
+    font-size: 0.95rem;
+  }
+  
+  
+  /* ==========================================
+     MTST PUBLICATION — VIEWPORT LAYOUT
+     ========================================== */
+  
+  .app:has(.publication-dashboard) {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+  
+  .app:has(.publication-dashboard) > header {
+    flex: 0 0 auto;
+  }
+  
+  .publication-dashboard {
+    position: relative;
+    flex: 1 1 0;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    color: #223247;
+    background: #fff;
+  }
+  
+  .publication-dashboard-content {
+    --publication-scale: 1;
+  
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  
+    width: min(1100px, calc(100% - 2rem));
+    padding: 0.5rem 0;
+  
+    transform:
+      translate(-50%, -50%)
+      scale(var(--publication-scale));
+  
+    transform-origin: center;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.65rem;
+  }
+  
+  /* Publication title */
+  
+  .publication-dashboard-heading {
+    width: 100%;
+    padding: 0 0 1.4rem;
+    border-bottom: 1px solid #dce4ef;
+    text-align: center;
+  }
+  
+  .publication-dashboard .publication-dashboard-heading h1 {
+    max-width: 1020px;
+    margin: 0 auto;
+  
+    color: #183a69;
+    font-size: clamp(2rem, 3.5vw, 3.4rem);
+    font-weight: 750;
+    line-height: 1.12;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+  
+  /* Existing introduction */
+  
+  .publication-dashboard-copy {
+    width: min(850px, 100%);
+    margin: 0 auto;
+  
+    color: #40546d;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: center;
+  }
+  
+  .publication-dashboard-copy p {
+    margin: 0;
+  }
+  
+  .publication-dashboard-copy p + p {
+    margin-top: 0.8rem;
+  }
+  
+  .publication-dashboard-copy strong {
+    font-weight: 650;
+  }
+  
+  .publication-dashboard-copy .publication-paper-link {
+    color: #183a69;
+  }
+  
+  /* Repository row placement */
+  
+  .publication-dashboard-content > .repo-row {
+    width: min(62rem, 100%);
+    margin: 0 auto;
+  }
+  
+  
+  /* ==========================================
+     RESPONSIVE
+     ========================================== */
+  
+  @media (max-width: 1000px) {
+    .app .competition-page {
+      width: calc(100% - 3rem);
+      max-width: none;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .app .competition-page {
+      width: calc(100% - 2rem);
+      padding-top: 1.8rem;
+      font-size: 1.02rem;
+    }
+  
+    .app .competition-page .competition-hero h1 {
+      font-size: clamp(2.2rem, 8vw, 3rem);
+    }
+  
+    .app .competition-page .competition-lead {
+      font-size: 1.2rem;
+    }
+  
+    .app .competition-page .competition-abstract {
+      font-size: 1.02rem;
+    }
+  
+    .app .competition-page .competition-section {
+      padding: 2.1rem 0;
+    }
+  
+    .app .competition-page .competition-section h2 {
+      font-size: 1.55rem;
+    }
+  
+    .app .competition-page .competition-section h3 {
+      font-size: 1.05rem;
+    }
+  
+    .app .competition-page .competition-callout {
+      padding: 1rem;
+    }
+  
+    .app .competition-page .competition-callout p {
+      font-size: 0.98rem;
+    }
+  
+    .app .competition-page .competition-equation {
+      padding: 0.8rem;
+    }
+  
+    .app .competition-page .competition-equation .katex {
+      font-size: 0.95em;
+    }
+  
+    .publication-dashboard-content {
+      gap: 1.2rem;
+    }
+  
+    .publication-dashboard-heading {
+      padding-bottom: 1rem;
+    }
+  
+    .publication-dashboard .publication-dashboard-heading h1 {
+      font-size: 2rem;
+    }
+  
+    .publication-dashboard-copy {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+  }
+
+  .publication-dashboard-content {
+    top: 16px;
+    transform:
+      translateX(-50%)
+      scale(var(--publication-scale));
+    transform-origin: top center;
+  }
+  
+  .publication-dashboard-copy {
+    font-size: 1.25rem;
+    line-height: 1.8;
+  }
+  
+  @media (max-width: 700px) {
+    .publication-dashboard-copy {
+      font-size: 1.1rem;
+    }
+  }
+
+  .app > header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-shrink: 0;
+    background: var(--bg, #fff);
+  }

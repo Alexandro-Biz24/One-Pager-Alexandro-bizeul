@@ -13,6 +13,7 @@ from timeseries.pipeline.clock import PARIS, day_bounds, paris_hours
 from timeseries.pipeline.fetch import fetch_consumption, fetch_temperature
 from timeseries.pipeline.fetch_future_rte import fetch_future_rte
 from timeseries.pipeline.store import FEATURES, connect, write_rte_once
+from timeseries.statistical.rte_intervals import fill_rte_intervals
 
 LOG = logging.getLogger("timeseries.backfill")
 
@@ -226,42 +227,106 @@ def repair_observations(day: date, *, write: bool):
 # PHASE 2 — RTE FORECAST
 # ==========================================================
 
-def repair_rte(day: date, *, write: bool):
 
-    existing = present(day, ("prediction_d1",))
+def repair_rte(day: date, *, write: bool):
+    """
+    Repair RTE D-1 forecasts and their 95% conformal intervals.
+
+    - Fetch missing RTE forecasts.
+    - Preserve existing RTE forecasts.
+    - Fill missing conformal bounds.
+    - Never overwrite existing intervals.
+    """
+
+    existing = present(
+        day,
+        ("prediction_d1",),
+    )
+
     missing = existing["prediction_d1"].isna()
 
     LOG.info(
-        "RTE %s | missing=%d",
-        day, missing.sum(),
+        "RTE %s | missing forecasts=%d",
+        day,
+        int(missing.sum()),
     )
 
-    if not missing.any() or not write:
-        return
+    # ==================================================
+    # STEP 1 — REPAIR MISSING RTE FORECASTS
+    # ==================================================
 
-    forecast = fetch_future_rte(
-        day - timedelta(days=1)
-    ).reindex(valid_hours(day))
+    if missing.any() and write:
 
-    values = forecast.loc[missing]
+        forecast = fetch_future_rte(
+            day - timedelta(days=1)
+        ).reindex(valid_hours(day))
 
-    if values.isna().any():
-        raise RuntimeError(
-            f"Incomplete RTE forecast for {day}: "
-            f"{values.isna().sum()} missing"
+        values = forecast.loc[missing]
+
+        if values.isna().any():
+            raise RuntimeError(
+                f"Incomplete RTE forecast for {day}: "
+                f"{int(values.isna().sum())} missing"
+            )
+
+        with connect() as db:
+            write_rte_once(
+                db,
+                values,
+                pd.Timestamp.now(tz="UTC"),
+            )
+
+        LOG.info(
+            "RTE %s | wrote %d missing forecasts",
+            day,
+            len(values),
         )
 
-    with connect() as db:
-        write_rte_once(
-            db,
-            values,
-            pd.Timestamp.now(tz="UTC"),
-        )
+    # ==================================================
+    # STEP 2 — REPAIR 95% CONFORMAL INTERVALS
+    # ==================================================
+
+    count = fill_rte_intervals(
+        start=day,
+        end=day,
+        write=write,
+    )
 
     LOG.info(
-        "RTE %s | wrote %d missing values",
-        day, len(values),
+        "RTE INTERVALS %s | write=%s | rows=%d",
+        day,
+        write,
+        count,
     )
+
+    # ==================================================
+    # STEP 3 — VERIFY COMPLETENESS
+    # ==================================================
+
+    if write:
+
+        after = present(
+            day,
+            (
+                "prediction_d1",
+                "rte_lower_95",
+                "rte_upper_95",
+            ),
+        )
+
+        missing_after = after.isna().sum()
+
+        if missing_after.any():
+            raise RuntimeError(
+                f"RTE data incomplete for {day}: "
+                f"{missing_after.to_dict()}"
+            )
+
+        LOG.info(
+            "RTE %s | forecasts and intervals complete",
+            day,
+        )
+
 
 
 # ==========================================================
