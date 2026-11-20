@@ -8,7 +8,7 @@ import time
 from base64 import b64encode
 from datetime import datetime, timedelta, timezone
 from io import StringIO
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
@@ -133,21 +133,53 @@ def fetch_consumption(start: datetime, end: datetime, kinds: str) -> pd.DataFram
 
 def _mf_get(path: str, api_key: str, **query) -> tuple[int, bytes]:
     url = f"{MF_ROOT}/{path}"
+
     if query:
         url += "?" + urlencode(query)
-    request = Request(url, headers={"accept": "*/*", "apikey": api_key})
-    for _ in range(8):
+
+    request = Request(
+        url,
+        headers={"accept": "*/*", "apikey": api_key},
+    )
+
+    max_attempts = 8
+
+    for attempt in range(1, max_attempts + 1):
         try:
             with urlopen(request, timeout=120) as response:
                 return response.status, response.read()
+
         except HTTPError as exc:
             body = exc.read()
-            if exc.code in (429, 500, 503) or b"SUSPENDED" in body:
-                print(f"Météo-France en pause ({exc.code}), nouvel essai dans 65 s", flush=True)
-                time.sleep(65)
-                continue
-            return exc.code, body
-    return exc.code, body
+
+            # Non-retryable HTTP errors.
+            if exc.code not in (429, 500, 502, 503, 504) \
+                    and b"SUSPENDED" not in body:
+                return exc.code, body
+
+            error = f"HTTP {exc.code}"
+
+        except (URLError, TimeoutError, ConnectionError) as exc:
+            error = f"{type(exc).__name__}: {exc}"
+
+        if attempt == max_attempts:
+            raise RuntimeError(
+                f"Meteo-France request failed after "
+                f"{max_attempts} attempts: {path} | {error}"
+            )
+
+        delay = min(5 * 2 ** (attempt - 1), 65)
+
+        print(
+            f"Meteo-France | {path} | "
+            f"attempt {attempt}/{max_attempts} failed | "
+            f"{error} | retry in {delay}s",
+            flush=True,
+        )
+
+        time.sleep(delay)
+
+    raise RuntimeError("Unreachable Meteo-France retry state")
 
 
 def _station_temperature(api_key: str, station_id: str, start: datetime, end: datetime) -> pd.Series:
