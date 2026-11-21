@@ -7,6 +7,7 @@ import ForecastModelSection from "./ForecastModelSection";
 import StatisticalTestsSection from "./StatisticalTestsSection";
 
 import "./ModelLayoutOverrides.css";
+import "./MobileDemand.css";
 
 const MODELS = [
   {
@@ -155,13 +156,25 @@ export default function Page() {
           </button>
         ))}
         </div>
+        <select
+          className="model-mobile-select"
+          aria-label="Select a forecasting model"
+          value={model}
+          onChange={(event) => setModel(event.target.value)}
+        >
+          {MODELS.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="model-cols">
 
         {/* COLUMN 1 — SHARED FEATURES */}
 
-        <section>
+        <section className="demand-features">
           <h2>Feature engineering</h2>
 
           <FeatureEngineeringSection />
@@ -169,7 +182,7 @@ export default function Page() {
 
         {/* COLUMN 2 — MODEL FORECAST */}
 
-        <section>
+        <section className="demand-forecast">
           <h2>{current.label} model</h2>
 
           {model === "statistical" ? (
@@ -193,7 +206,7 @@ export default function Page() {
 
         {/* COLUMN 3 — SHARED STATISTICAL TESTS */}
 
-        <section>
+        <section className="demand-tests">
           <h2>Statistical tests</h2>
 
           <StatisticalTestsSection

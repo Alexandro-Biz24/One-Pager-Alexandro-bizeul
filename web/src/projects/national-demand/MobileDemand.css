@@ -1,0 +1,155 @@
+/* Only the national-demand dashboard. Desktop layout stays unchanged. */
+.model-mobile-select { display: none; }
+
+@media (max-width: 900px) {
+  /* Undo the viewport-locked three-column desktop dashboard. */
+  .app:has(.model-screen) {
+    height: auto;
+    min-height: 100dvh;
+    display: block;
+    overflow: visible;
+  }
+  .app:has(.model-screen) > .wrap,
+  .app:has(.model-screen) > .wrap > main {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .app .model-screen {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    margin: 0;
+    padding: 16px clamp(12px, 3vw, 26px) 36px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Compact model selection: native and accessible on mobile. */
+  .app .model-screen .model-selection-row {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    margin: 0 0 18px;
+    padding: 0;
+  }
+  .app .model-screen .model-selection-label {
+    font-size: 0.85rem;
+    text-align: left;
+  }
+  .app .model-screen .model-switch { display: none; }
+  .app .model-screen .model-mobile-select {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 12px;
+    border: 1px solid #b7c5d8;
+    border-radius: 8px;
+    background: #fff;
+    color: #183a69;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 650;
+  }
+
+  /* One full-width column, in forecast -> tests -> features order. */
+  .app .model-screen .model-cols {
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    gap: 24px;
+  }
+  .app .model-screen .model-cols > .demand-forecast { order: 1; }
+  .app .model-screen .model-cols > .demand-tests { order: 2; }
+  .app .model-screen .model-cols > .demand-features { order: 3; }
+
+  .app .model-screen .model-cols > section {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible !important;
+    flex: none;
+    padding: 0 !important;
+    border-left: 0 !important;
+    border-top: 0;
+    scrollbar-gutter: auto;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .app .model-screen .model-cols > section > h2 {
+    position: static;
+    top: auto;
+    z-index: auto;
+    padding: 0 0 10px;
+    margin: 0 0 12px;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    border-bottom: 1px solid #d7dfeb;
+  }
+
+  .app .model-screen .sarima-section,
+  .app .model-screen .statistical-tests-section,
+  .app .model-screen .sarima-chart-card,
+  .app .model-screen .statistical-tests-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .app .model-screen .sarima-card,
+  .app .model-screen .statistical-tests-card {
+    box-sizing: border-box;
+    padding: clamp(10px, 2vw, 16px);
+  }
+  .app .model-screen .sarima-chart-heading h3,
+  .app .model-screen .statistical-tests-card h3 {
+    font-size: 1.15rem;
+    line-height: 1.35;
+  }
+  .app .model-screen .sarima-chart-toolbar { flex-wrap: wrap; }
+  .app .model-screen .sarima-period-control { min-width: 0; }
+  .app .model-screen .sarima-date-fields { min-width: 0; }
+  .app .model-screen .sarima-date-fields input { max-width: 100%; }
+  .app .model-screen .fe-accordion-title { font-size: 1.08rem; }
+  .app .model-screen .fe-accordion-trigger { padding: 12px; }
+  .app .model-screen .fe-accordion-content { padding: 12px; }
+  .app .model-screen .statistical-tests-description,
+  .app .model-screen .statistical-tests-period,
+  .app .model-screen .stats-explanation-content { font-size: 0.875rem; }
+
+  /* Charts keep the entire available column. Formula tables may scroll. */
+  .app .model-screen .recharts-responsive-container,
+  .app .model-screen .stats-fixed-chart { width: 100% !important; max-width: 100%; }
+  .app .model-screen .statistical-tests-table-scroll,
+  .app .model-screen .stats-formula,
+  .app .model-screen .stats-diagnostics-latex {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .app .model-screen .stats-diagnostics-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 540px) {
+  .app .model-screen { padding-inline: 12px; }
+  .app .model-screen .model-cols { gap: 20px; }
+  .app .model-screen .sarima-card,
+  .app .model-screen .statistical-tests-card { padding: 10px; }
+  .app .model-screen .sarima-date-fields { grid-template-columns: minmax(0, 1fr); }
+  .app .model-screen .model-cols > section > h2 { font-size: 1rem; }
+  .app .model-screen .recharts-cartesian-axis-tick-value { font-size: 0.625rem; }
+}

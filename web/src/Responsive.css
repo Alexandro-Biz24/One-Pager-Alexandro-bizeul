@@ -1,0 +1,595 @@
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   Desktop reference: MacBook at browser zoom 100%
+   ============================================================ */
+
+/* The current design was calibrated at a 67% root font size.
+   Preserve that reference on laptops, grow moderately on
+   larger screens, and restore accessible text on mobile. */
+
+   html {
+    font-size: clamp(10.72px, 0.75vw, 15px);
+  }
+  
+  body {
+    min-width: 0;
+  }
+  
+  .app {
+    min-width: 0;
+  }
+  
+  img,
+  canvas,
+  svg {
+    max-width: 100%;
+  }
+  
+  button,
+  input,
+  select,
+  textarea {
+    max-width: 100%;
+  }
+  
+  /* Menu buttons only appear on smaller screens */
+  
+  .mobile-menu-toggle,
+  .mobile-submenu-toggle {
+    display: none;
+  }
+  
+  .mobile-menu-row {
+    display: contents;
+  }
+  
+  /* ============================================================
+     LARGE DESKTOP
+     ============================================================ */
+  
+  @media (min-width: 1800px) {
+    :root {
+      --header-name-font-size: 2.2rem;
+      --navbar-font-size: 1.45rem;
+  
+      --directory-width: 62vw;
+      --directory-max-width: 90rem;
+    }
+  
+    .banner .banner-bar {
+      padding-inline: clamp(2rem, 3vw, 5rem);
+    }
+  
+    .model-screen {
+      padding-inline: clamp(2rem, 2.5vw, 5rem);
+    }
+  
+    .model-cols {
+      gap: clamp(1.5rem, 1.5vw, 3rem);
+    }
+  
+    .model-cols > section {
+      min-width: 0;
+    }
+  
+    .model-cols > section > h2 {
+      font-size: clamp(1.1rem, 0.9vw, 1.5rem);
+    }
+  
+    .publication-dashboard-content,
+    .specs-publication {
+      max-width: 95rem;
+    }
+  }
+  
+  /* ============================================================
+     LAPTOP / SMALL DESKTOP
+     ============================================================ */
+  
+  @media (max-width: 1350px) and (min-width: 901px) {
+    .banner .banner-bar {
+      gap: 1rem;
+      padding-inline: 1.5rem;
+    }
+  
+    .identity-group {
+      gap: 1rem 2rem;
+    }
+  
+    .banner .identity-item:first-child .identity-logo {
+      width: min(var(--company-logo-width), 11rem);
+    }
+  
+    .banner .identity-item:nth-child(2) .identity-logo {
+      width: min(var(--university-logo-width), 12rem);
+    }
+  
+    .model-screen {
+      padding-inline: 1.2rem;
+    }
+  
+    .model-cols {
+      gap: 1rem;
+    }
+  
+    .model-cols > section {
+      min-width: 0;
+    }
+  }
+  
+  /* ============================================================
+     TABLET AND MOBILE NAVIGATION
+     ============================================================ */
+  
+  @media (max-width: 900px) {
+    html {
+      font-size: 16px;
+    }
+  
+    body {
+      font-size: 1rem;
+    }
+  
+    .app > header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+  
+    /* Header */
+  
+    .banner .banner-bar {
+      height: auto;
+      min-height: 68px;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+  
+    .banner h1,
+    .banner .banner-name {
+      font-size: clamp(1.15rem, 3vw, 1.5rem);
+      line-height: 1.25;
+      flex: 1 1 auto;
+    }
+  
+    .identity-group {
+      order: 3;
+      flex: 1 1 100%;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 12px 28px;
+      margin-left: 0;
+    }
+  
+    .banner .identity-item {
+      flex: 0 1 auto;
+      min-width: 0;
+      gap: 5px;
+    }
+  
+    .banner .identity-item:first-child .identity-logo {
+      width: 110px;
+      height: 42px;
+    }
+  
+    .banner .identity-item:nth-child(2) .identity-logo {
+      width: 85px;
+      height: 42px;
+    }
+  
+    .banner .identity-logo {
+      max-height: 42px;
+    }
+  
+    .banner .identity-details {
+      margin-left: 6px;
+      padding-left: 8px;
+      border-left: 1px solid rgba(255,255,255,.75);
+    }
+  
+    .banner .identity-item:first-child .identity-role,
+    .banner .identity-item:first-child .identity-name,
+    .banner .identity-item:nth-child(2) .identity-name {
+      font-size: 0.72rem;
+    }
+  
+    /* Hamburger */
+  
+    .mobile-menu-toggle {
+      order: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 44px;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 7px;
+      cursor: pointer;
+    }
+  
+    .mobile-menu-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  
+    .mobile-menu-icon span {
+      display: block;
+      width: 21px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+    }
+  
+    /* Menu */
+  
+    .menubar {
+      display: none;
+      max-height: min(72dvh, 640px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+  
+    .menubar.mobile-open {
+      display: block;
+    }
+  
+    .menubar > .bar {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      height: auto;
+      padding: 5px 0;
+      gap: 0;
+    }
+  
+    .menu-item {
+      flex: none;
+      width: 100%;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+  
+    .mobile-menu-row {
+      display: flex;
+      align-items: center;
+      min-height: 50px;
+    }
+  
+    .app .menubar .mobile-menu-row > a {
+      flex: 1;
+      padding: 14px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  
+    .mobile-submenu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      min-height: 50px;
+      flex-shrink: 0;
+      background: transparent;
+      border: 0;
+      border-left: 1px solid rgba(255,255,255,.2);
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+  
+    .menubar .dropdown {
+      display: none;
+      position: static;
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      box-shadow: none;
+      background: rgba(0,0,0,.13);
+    }
+  
+    .menubar .menu-item:hover .dropdown,
+    .menubar .menu-item:focus-within .dropdown {
+      display: none;
+    }
+  
+    .menubar .dropdown.mobile-expanded,
+    .menubar .menu-item:hover .dropdown.mobile-expanded,
+    .menubar .menu-item:focus-within .dropdown.mobile-expanded {
+      display: block;
+    }
+  
+    .app .menubar .dropdown a {
+      padding: 13px 22px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      border-bottom: 1px solid rgba(255,255,255,.13);
+    }
+  
+    /* Directory pages */
+  
+    .directory-page,
+    .pub-list.directory-page {
+      width: min(720px, calc(100% - 32px));
+      max-width: none;
+      padding: 28px 0 55px;
+    }
+  
+    .directory-page > h1 {
+      font-size: 1.8rem;
+    }
+  
+    .directory-page .item {
+      padding: 17px 12px;
+      font-size: 1rem;
+    }
+  
+    /* Publications */
+  
+    .repo-row {
+      grid-template-columns: 1fr;
+      width: 100%;
+      max-width: 620px;
+    }
+  
+    .pub-copy {
+      width: min(100%, 680px);
+      max-width: 100%;
+      font-size: 1rem;
+    }
+  
+    .pub-page {
+      padding: 28px 18px 50px;
+    }
+  
+    .app:has(.publication-dashboard) {
+      height: auto;
+      min-height: 100dvh;
+      overflow: visible;
+    }
+  
+    .publication-dashboard {
+      position: relative;
+      min-height: 0;
+      overflow: visible;
+    }
+  
+    .publication-dashboard-content {
+      position: static;
+      transform: none;
+      width: min(680px, calc(100% - 32px));
+      max-width: none;
+      margin: 25px auto 50px;
+      padding: 0;
+      gap: 22px;
+    }
+  
+    .publication-dashboard-copy {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+  
+    .specs-publication {
+      width: min(720px, calc(100% - 32px));
+    }
+  
+    /* Competitions */
+  
+    .app .competition-page {
+      width: min(720px, calc(100% - 32px));
+      max-width: none;
+    }
+  
+    /* Quant project */
+  
+    .model-screen {
+      width: 100%;
+      max-width: 100%;
+      margin-left: 0;
+      padding: 20px 16px 45px;
+    }
+  
+    .model-selection-row {
+      flex-direction: column;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+  
+    .model-selection-label {
+      text-align: center;
+      font-size: 0.95rem;
+    }
+  
+    .model-switch {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      width: 100%;
+      gap: 6px;
+    }
+  
+    .model-switch button {
+      min-width: 0;
+      padding: 12px 7px;
+      font-size: 0.84rem;
+      line-height: 1.25;
+      white-space: normal;
+    }
+  
+    .model-cols {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+  
+    .model-cols > section {
+      min-width: 0;
+      min-height: 0;
+      height: auto;
+      max-height: none;
+      overflow: visible;
+      padding: 0;
+      border-left: 0 !important;
+    }
+  
+    .model-cols > section:not(:first-child),
+    .model-cols > section:not(:last-child) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  
+    .model-cols > section > h2 {
+      position: static;
+      padding: 12px 0;
+      font-size: 0.9rem;
+    }
+  
+    .sarima-section,
+    .statistical-tests-section {
+      min-width: 0;
+    }
+  
+    .sarima-chart-card,
+    .statistical-tests-card {
+      max-width: 100%;
+      min-width: 0;
+    }
+  
+    .sarima-chart-toolbar {
+      flex-wrap: wrap;
+    }
+  
+    .statistical-tests-table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  
+    /* PDF viewer */
+  
+    .pdf-shell {
+      width: 100%;
+      height: calc(100dvh - 160px);
+      min-height: 450px;
+    }
+  
+    .pdf-thumbs {
+      display: none;
+    }
+  
+    .pdf-thumbs.is-hidden {
+      display: none;
+    }
+  
+    .pdf-pages {
+      min-width: 100%;
+    }
+  }
+  
+  /* ============================================================
+     SMALL SMARTPHONES
+     ============================================================ */
+  
+  @media (max-width: 540px) {
+    .banner .banner-bar {
+      padding: 10px 14px;
+    }
+  
+    .banner h1,
+    .banner .banner-name {
+      font-size: 1.2rem;
+    }
+  
+    .identity-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      width: 100%;
+    }
+  
+    .banner .identity-item {
+      width: 100%;
+      min-width: 0;
+    }
+  
+    .banner .identity-item:first-child .identity-logo {
+      width: 55px;
+      height: 38px;
+    }
+  
+    .banner .identity-item:nth-child(2) .identity-logo {
+      width: 48px;
+      height: 38px;
+    }
+  
+    .banner .identity-details {
+      min-width: 0;
+      margin-left: 3px;
+      padding-left: 6px;
+      overflow-wrap: anywhere;
+    }
+  
+    .banner .identity-item:first-child .identity-role,
+    .banner .identity-item:first-child .identity-name,
+    .banner .identity-item:nth-child(2) .identity-name {
+      font-size: 0.6rem;
+      line-height: 1.2;
+    }
+  
+    .model-screen {
+      padding: 16px 12px 36px;
+    }
+  
+    .model-switch button {
+      font-size: 0.77rem;
+      padding: 10px 5px;
+    }
+  
+    .model-cols {
+      gap: 22px;
+    }
+  
+    .specs-stages,
+    .specs-math-grid,
+    .specs-results {
+      grid-template-columns: 1fr;
+    }
+  
+    .specs-equation,
+    .competition-equation {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+  
+    .pdf-shell {
+      height: calc(100dvh - 155px);
+      min-height: 380px;
+    }
+  }
+  
+  @media (min-width: 901px) {
+    .app .menubar .mobile-menu-row > a {
+      display: block;
+      width: 100%;
+      padding: var(--site-nav-item-padding-y)
+        var(--site-nav-item-padding-x);
+      font-size: var(--navbar-font-size);
+      font-weight: var(--navbar-font-weight);
+      line-height: var(--site-nav-line-height);
+      color: #fff;
+      text-decoration: none;
+    }
+  
+    .app .menubar .mobile-menu-row > a[aria-current="page"] {
+      text-decoration: underline;
+      text-underline-offset: 0.35rem;
+    }
+  }

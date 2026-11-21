@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { getJson } from "../api"
@@ -78,6 +79,8 @@ export function Header() {
   const { pathname } = useLocation()
   const [name, setName] = useState("Alexandro Bizeul")
   const [sections, setSections] = useState([])
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [expandedMenu, setExpandedMenu] = useState(null)
 
   const current =
     pathname === "/"
@@ -107,6 +110,11 @@ export function Header() {
       active = false
     }
   }, [])
+
+  useEffect(() => {
+    setMobileOpen(false)
+    setExpandedMenu(null)
+  }, [pathname])
 
   const navigation = []
   let competitionAdded = false
@@ -149,10 +157,31 @@ export function Header() {
               entry={siteIdentity.university}
             />
           </div>
+
+          <button
+            className="mobile-menu-toggle"
+            type="button"
+            aria-label={
+              mobileOpen ? "Close navigation" : "Open navigation"
+            }
+            aria-expanded={mobileOpen}
+            aria-controls="site-navigation"
+            onClick={() => setMobileOpen((value) => !value)}
+          >
+            <span className="mobile-menu-icon">
+              <span />
+              <span />
+              <span />
+            </span>
+          </button>
         </div>
       </div>
 
-      <nav className="menubar" aria-label="Sections">
+      <nav
+        id="site-navigation"
+        className={`menubar ${mobileOpen ? "mobile-open" : ""}`}
+        aria-label="Sections"
+      >
         <div className="bar">
           {navigation.map((section) => {
             const original = section.projects || []
@@ -163,30 +192,55 @@ export function Header() {
               ...extra.filter(
                 (item) =>
                   !original.some(
-                    (existing) =>
-                      existing.slug === item.slug
+                    (existing) => existing.slug === item.slug
                   )
               ),
             ]
+
+            const expanded = expandedMenu === section.id
 
             return (
               <div
                 className="menu-item"
                 key={section.id}
               >
-                <Link
-                  to={section.path || `/${section.id}`}
-                  aria-current={
-                    current === section.id
-                      ? "page"
-                      : undefined
-                  }
-                >
-                  {section.label}
-                </Link>
+                <div className="mobile-menu-row">
+                  <Link
+                    to={section.path || `/${section.id}`}
+                    aria-current={
+                      current === section.id
+                        ? "page"
+                        : undefined
+                    }
+                  >
+                    {section.label}
+                  </Link>
+
+                  {projects.length > 0 && (
+                    <button
+                      type="button"
+                      className="mobile-submenu-toggle"
+                      aria-label={
+                        `${expanded ? "Close" : "Open"} ${section.label} submenu`
+                      }
+                      aria-expanded={expanded}
+                      onClick={() => {
+                        setExpandedMenu(
+                          expanded ? null : section.id
+                        )
+                      }}
+                    >
+                      {expanded ? "−" : "+"}
+                    </button>
+                  )}
+                </div>
 
                 {projects.length > 0 && (
-                  <div className="dropdown">
+                  <div
+                    className={`dropdown ${
+                      expanded ? "mobile-expanded" : ""
+                    }`}
+                  >
                     {projects.map((item) => (
                       <Link
                         key={item.slug}
